@@ -22,6 +22,7 @@ function calc() {
       type:'GET',
       timeout:600000,
       success:function (data) {
+        //清除以前的
         dispLoading(false);
         console.log(data);
         sigma.parsers.json(JSON.stringify(data), {
