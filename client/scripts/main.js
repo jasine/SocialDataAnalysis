@@ -42,7 +42,7 @@ function calc() {
           for(var i=0;i<$(this).parent().children().length;i++){
             if($(this).parent().children()[i]===this){
                             $(this).addClass('active');
-              type=i;
+              type=i+1;
 
             }
             else{
@@ -70,12 +70,13 @@ function calc() {
 });
 
   $('#loadfile').on('filebatchuploadsuccess', function(event, data, previewId, index) {
-    $('#loadfile').text(fileName);
      file = data.response;
-     //loadfile.
-     console.log(data); 
-     calc();
+     type=0;
 
+     //loadfile.
+     console.log(data);
+     calc();
+     //$('#loadfile').val(data.files[0]);
 });
 
   
