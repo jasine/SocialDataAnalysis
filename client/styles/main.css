@@ -1,0 +1,173 @@
+/* Main Stylesheet */
+
+/* Box sizing styles: Apply a natural box layout model to all elements */
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Author Custom Styles */
+
+.yeogurt-info {
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.version {
+  font-size: 14px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.logo {
+  margin-top: 15px;
+}
+
+.links a {
+  color: white;
+  margin-right: 5px;
+  margin-top: 20px;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  background: #ed7c6c;
+  display: inline-block;
+  zoom: 1;
+  line-height: normal;
+  white-space: nowrap;
+  vertical-align: baseline;
+  text-align: center;
+  cursor: pointer;
+  font-size: 100%;
+  padding: .5em 1em;
+  text-decoration: none;
+}
+/* Move down content because we have a fixed navbar that is 50px tall */
+/* Move down content because we have a fixed navbar that is 50px tall */
+    body {
+      padding-top: 50px;
+    }
+
+    #loading-img{
+      margin-left:auto;
+      margin-right: auto;
+      margin-top: 30px;
+      display: block;
+    }
+
+    /*
+    * Global add-ons
+    */
+
+    .sub-header {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+
+    /*
+    * Sidebar
+    */
+
+    /* Hide for mobile, show later */
+    .sidebar {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+      }
+    }
+
+    /* Sidebar navigation */
+    .nav-sidebar {
+      margin-right: -21px; /* 20px padding + 1px border */
+      margin-bottom: 20px;
+      margin-left: -20px;
+    }
+    .nav-sidebar > li > a {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+    .nav-sidebar > .active > a {
+      color: #fff;
+      background-color: #428bca;
+    }
+  
+  #nav-bar li a:hover{
+    color: #fff;
+      background-color: #428bca;
+  }
+  #nav-bar li a{
+    cursor:pointer;
+  }
+    
+    /*
+    * Main content
+    */
+
+    .main {
+      padding: 20px;
+    }
+    @media (min-width: 768px) {
+      .main {
+        padding-right: 40px;
+        padding-left: 40px;
+      }
+    }
+    .main .page-header {
+      margin-top: 0;
+    }
+
+
+    /*
+    * Placeholder dashboard ideas
+    */
+
+    .placeholders {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .placeholders h4 {
+      margin-bottom: 0;
+    }
+    .placeholder {
+      margin-bottom: 20px;
+    }
+    .placeholder img {
+      display: inline-block;
+      border-radius: 50%;
+    }
+
+    #graph-container {
+      margin: 10px 10px 10px 10px;
+
+      right: 0;
+      width:1050px;
+      height: 480px;
+    }
+
+/* Styling on warning for users on IE7 or below */
+.browsehappy {
+  text-align: center;
+  margin: 0;
+  background: #fff8e2;
+  color: #000;
+  padding: 0.5em 0;
+}

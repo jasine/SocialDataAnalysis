@@ -1,0 +1,130 @@
+//- Base template
+//- All other templates should extend from this
+
+//- [injector:jade]
+//- [endinjector]
+
+doctype html
+<!--[if lte IE 8]><html class='lt-ie9 no-js' lang='en'><![endif]-->
+<!--[if gt IE 8]><!--><html class=' no-js' lang='en'><!--<![endif]-->
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+  title Social-Analysis
+  meta(name='description', content='')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  meta(name='csrf-token', content=_csrf)
+
+  if (env == 'development')
+    // build:css(client) styles/global.css
+    // bower:css
+    link(rel='stylesheet', href='/bower_components/normalize.css/normalize.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap-fileinput/css/fileinput.min.css')
+    link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.css')
+    // endbower
+    // endbuild
+
+    // build:css(client) styles/main.css
+    // [injector:css]
+    // [endinjector]
+    link(rel='stylesheet', href='/styles/main.css')
+    // endbuild
+  else
+    link(rel='stylesheet', href='/styles/global.css')
+    link(rel='stylesheet', href='/styles/main.css')
+
+  if (env == 'development')
+    // build:js(client) scripts/modernizr.js
+    script(src='/bower_components/modernizr/modernizr.js')
+    // endbuild
+  else
+    script(src='/scripts/modernizr.js')
+
+  // HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+  // build:js(client) scripts/shims.js
+  <!--[if lt IE 9]>
+  script(src='/bower_components/consolelog/consolelog.js')
+  script(src='/bower_components/html5shiv/dist/html5shiv-printshiv.js')
+  <![endif]-->
+  block css
+  // endbuild
+body.fixed-top
+  <!--[if lte IE 7]>
+  <p class='browsehappy'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/''>upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  block layout
+    block content
+
+  if (env == 'development')
+    // build:js(client) scripts/global.js
+    // bower:js
+    script(src='/bower_components/jquery/dist/jquery.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+    script(src='/bower_components/bootstrap-fileinput/js/fileinput.min.js')
+    script(src='/bower_components/sigma.js/sigma.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.layout.forceAtlas2.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.parsers.gexf.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.plugins.animate.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.plugins.dragNodes.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.plugins.filter.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.plugins.neighborhoods.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.renderers.customEdgeShapes.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.renderers.customShapes.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.renderers.edgeLabels.min.js')
+    script(src='/bower_components/sigma.js/plugins/sigma.statistics.HITS.min.js')
+    script(src='/bower_components/sigma.js/src/utils/sigma.utils.js')
+    script(src='/bower_components/sigma.js/src/utils/sigma.polyfills.js')
+    script(src='/bower_components/sigma.js/src/sigma.settings.js')
+    script(src='/bower_components/sigma.js/src/classes/sigma.classes.dispatcher.js')
+    script(src='/bower_components/sigma.js/src/classes/sigma.classes.configurable.js')
+    script(src='/bower_components/sigma.js/src/classes/sigma.classes.graph.js')
+    script(src='/bower_components/sigma.js/src/classes/sigma.classes.camera.js')
+    script(src='/bower_components/sigma.js/src/classes/sigma.classes.quad.js')
+    script(src='/bower_components/sigma.js/src/classes/sigma.classes.edgequad.js')
+    script(src='/bower_components/sigma.js/src/captors/sigma.captors.mouse.js')
+    script(src='/bower_components/sigma.js/src/captors/sigma.captors.touch.js')
+    script(src='/bower_components/sigma.js/src/renderers/sigma.renderers.canvas.js')
+    script(src='/bower_components/sigma.js/src/renderers/sigma.renderers.webgl.js')
+    script(src='/bower_components/sigma.js/src/renderers/sigma.renderers.svg.js')
+    script(src='/bower_components/sigma.js/src/renderers/sigma.renderers.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/webgl/sigma.webgl.nodes.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/webgl/sigma.webgl.nodes.fast.js')
+    script(src='/bower_components/sigma.js/src/renderers/webgl/sigma.webgl.edges.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/webgl/sigma.webgl.edges.fast.js')
+    script(src='/bower_components/sigma.js/src/renderers/webgl/sigma.webgl.edges.arrow.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.labels.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.hovers.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.nodes.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edges.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edges.curve.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edges.arrow.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edgehovers.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edgehovers.curve.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js')
+    script(src='/bower_components/sigma.js/src/renderers/canvas/sigma.canvas.extremities.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/svg/sigma.svg.utils.js')
+    script(src='/bower_components/sigma.js/src/renderers/svg/sigma.svg.nodes.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/svg/sigma.svg.edges.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/svg/sigma.svg.edges.curve.js')
+    script(src='/bower_components/sigma.js/src/renderers/svg/sigma.svg.labels.def.js')
+    script(src='/bower_components/sigma.js/src/renderers/svg/sigma.svg.hovers.def.js')
+    script(src='/bower_components/sigma.js/src/middlewares/sigma.middlewares.rescale.js')
+    script(src='/bower_components/sigma.js/src/middlewares/sigma.middlewares.copy.js')
+    script(src='/bower_components/sigma.js/src/misc/sigma.misc.animation.js')
+    script(src='/bower_components/sigma.js/src/misc/sigma.misc.bindEvents.js')
+    script(src='/bower_components/sigma.js/src/misc/sigma.misc.bindDOMEvents.js')
+    script(src='/bower_components/sigma.js/src/misc/sigma.misc.drawHovers.js')
+    // endbower
+    // endbuild
+  else
+    script(src='/scripts/global.js')
+
+  // build:js(client) scripts/main.js
+  // [injector:js]
+  // [endinjector]
+  script(src='/scripts/main.js')
+  // endbuild
