@@ -2,34 +2,39 @@
 /* global sigma */
 'use strict';
 var type=1;
-var node=2;
+var node=0;
 var file='';
 var fileName='';
+var sg;
 function dispLoading(display) {
   if(display){
     $('#loading-img').show();
+    $('#graph-container').hide();
     $('#btn-calc').addClass('disabled').text('Calculating');
 
   }else{
     $('#loading-img').hide();
+    $('#graph-container').show();
     $('#btn-calc').removeClass('disabled').text('Calculate');
   }
 }
 function calc() {
    dispLoading(true);
-   $.ajax({
+   setTimeout(function (params) {
+      $.ajax({
       url:'calc/'+file+'/'+type+'/'+node,
       type:'GET',
       timeout:600000,
       success:function (data) {
-        //清除以前的
+
         dispLoading(false);
         console.log(data);
-        sigma.parsers.json(JSON.stringify(data), {
-         container: 'graph-container'
-        });
+        sigma.parsers.json(JSON.stringify(data), sg);
+        sg.refresh();      
       }    
     });
+   },1500);
+  
 }
 (function() {
   dispLoading(false);
@@ -43,13 +48,17 @@ function calc() {
           for(var i=0;i<$(this).parent().children().length;i++){
             if($(this).parent().children()[i]===this){
                             $(this).addClass('active');
-              type=i+1;
-
+                            type=i+1;
+                            $('#title').text($(this).text());
             }
             else{
               $($(this).parent().children()[i]).removeClass('active');
+
             }
-          }         
+          }
+          
+          //sg.graph.clear();   
+
         }) ;
   
   //console.log('Welcome to Yeogurt');
@@ -76,6 +85,22 @@ function calc() {
 
      //loadfile.
      console.log(data);
+     sg=new sigma();
+        sg.addRenderer({
+          type:'canvas',
+         container: 'graph-container'
+        });
+     sg.bind('clickNode',function (e) {
+       console.log(e.data.node.id);
+       node=e.data.node.id.substring(1);
+     });
+     
+     sg.bind('doubleClickNode',function (e) {
+       console.log(e.data.node.id);
+       node=e.data.node.id.substring(1);
+       calc();
+     });
+     
      calc();
      //$('#loadfile').val(data.files[0]);
 });

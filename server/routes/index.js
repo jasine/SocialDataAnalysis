@@ -72,8 +72,9 @@ var routes = function(app) {
         var node=req.params.node;
         
         var libs=['graph','a1'];
+        var als=['R','B','G'];
   
-        var last = exec('server/libs/'+libs[type] + ' ./uploads/'+file+'.txt '+node);
+        var last = exec('server/libs/a2 ' +als[type]+ ' ./uploads/'+file+'.txt '+node);
         last.stdout.on('data', function(data) {
             console.log('标准输出：' + data);
             //data='n0:Node0:210:181:3 n1:Node1:180:39:3 n2:Node2:177:190:3 n3:Node3:76:158:3 n4:Node4:166:245:3 n5:Node5:238:75:3 n6:Node6:100:204:3 n7:Node7:134:224:3 n8:Node8:180:280:3 n9:Node9:27:252:3\nedge0:n9:n7 edge1:n7:n5 edge2:n7:n8 edge3:n7:n6 edge4:n8:n5 edge5:n8:n6 edge6:n5:n6 edge7:n5:n4 edge8:n6:n4 edge9:n4:n3 edge10:n4:n1 edge11:n3:n2 edge12:n3:n1 edge13:n2:n1';
