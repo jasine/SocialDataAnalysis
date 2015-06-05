@@ -1,11 +1,13 @@
 /// <reference path="../../typings/jquery/jquery.d.ts"/>
 /* global sigma */
 'use strict';
-var type=1;
+var type=0;
 var node=0;
 var file='';
 var fileName='';
+var count='-1';
 var sg;
+
 function dispLoading(display) {
   if(display){
     $('#loading-img').show();
@@ -20,23 +22,70 @@ function dispLoading(display) {
 }
 function calc() {
    dispLoading(true);
+   if($('#nodeCount').val()==""){
+     count='-1';
+   }else{
+     count=$('#nodeCount').val();
+   }
+   
    setTimeout(function (params) {
       $.ajax({
-      url:'calc/'+file+'/'+type+'/'+node,
+      url:'calc/'+file+'/'+type+'/'+node+'/'+count,
       type:'GET',
       timeout:600000,
       success:function (data) {
-
+        if(type===0){
+          $('#title').text('Please select an algorithm');
+        }
         dispLoading(false);
-        console.log(data);
-        sigma.parsers.json(JSON.stringify(data), sg);
+        //console.log(data);
+        sigma.parsers.json(JSON.stringify(data.graph), sg);
+        sg.graph.nodes('n'+node).size=6;
         sg.refresh();      
+        console.log(JSON.stringify(data.data));
+        var str ="";
+        for(var j=0;j<data.data.length;j++){
+          str+="<p><strong>Community "+(j+1)+":</strong> ";
+          var comms=data.data[j].split(',');
+          for(var k=0;k<comms.length;k++){
+            str+=comms[k].toString()+", ";
+          }
+          str+="</p>";
+        }
+        $("#datacontain").html(str);
       }    
     });
    },1500);
   
 }
 (function() {
+  sg=new sigma({renderers:[{
+         type:'canvas',
+         container: 'graph-container'
+       }]});
+//        sg.addRenderer({
+//          type:'canvas',
+//         container: 'graph-container'
+//        });
+     sg.bind('clickNode',function (e) {
+       console.log(e.data.node.id);
+       sg.graph.nodes('n'+node).size=3;
+       node=e.data.node.id.substring(1);
+       //e.data.node.color='rgb(0,0,0)';
+       e.data.node.size=6;
+       //sigma.graph.
+
+       sg.refresh();
+       
+     });
+     
+     sg.bind('doubleClickNode',function (e) {
+       console.log(e.data.node.id);
+       node=e.data.node.id.substring(1);
+       calc();
+     });
+  
+  
   dispLoading(false);
   $('#btn-calc').addClass('disabled');
   $('#btn-calc').click(function (params) {
@@ -81,27 +130,16 @@ function calc() {
 
   $('#loadfile').on('filebatchuploadsuccess', function(event, data, previewId, index) {
      file = data.response;
+     for(var i=0;i<$("#nav-bar").children().length;i++){
+        $($("#nav-bar").children()[i]).removeClass('active');
+     }
      type=0;
-
      //loadfile.
-     console.log(data);
-     sg=new sigma();
-        sg.addRenderer({
-          type:'canvas',
-         container: 'graph-container'
-        });
-     sg.bind('clickNode',function (e) {
-       console.log(e.data.node.id);
-       node=e.data.node.id.substring(1);
-     });
-     
-     sg.bind('doubleClickNode',function (e) {
-       console.log(e.data.node.id);
-       node=e.data.node.id.substring(1);
-       calc();
-     });
-     
+     console.log(data); 
      calc();
+
+ 
+
      //$('#loadfile').val(data.files[0]);
 });
 

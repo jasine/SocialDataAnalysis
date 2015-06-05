@@ -38,9 +38,12 @@ block content
 							| Brute-Force Clique Identification
 							span.sr-only (current)
 					li
+						//a() Group-Based Community Detction
 						a() Clique Percolation Method
 					li
-						a() Group-Based Community Detction
+						a() Balanced Communities
+					li
+						a() Modular Communities
 					li
 						a() Community Evolution
 					li
@@ -52,15 +55,37 @@ block content
 				//- 			span.sr-only (current)
 
 			.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-				h1#title.page-header Original Graph
+				h3#title.page-header Please upload data file
 				.row
 					.col-md-5
 						input#loadfile.file(type='file',data-preview-file-type='text')
-					.col-md-7
+					
+					.col-md-4
+						form.form-inline
+							.form-group
+								label(for='nodeCount') NodeCount：
+								input#nodeCount(type='text',placeholder="input here").form-control
+					.col-md-3
 						a#btn-calc.btn.btn-info.disabled Calculate
-				div#container
-					img#loading-img(src='images/loading.gif',width='600px',height='400px')
-					div#graph-container
+				hr
+				.row
+					.col-xs-3
+						.tabbable.tabs-left
+							ul.nav.nav-tabs
+								li.active
+									a(href='#graph',data-toggle='tab') Graph
+								li
+									a(href='#data',data-toggle='tab') Text
+					.col-xs-9
+						.tab-content
+							#graph.tab-pane.active.fade.in
+								div#container
+									img#loading-img(src='images/loading.gif',width='600px',height='400px')
+									div#graph-container
+							#data.tab-pane
+								.container
+									div#datacontain
+				
 
 
 				
