@@ -7,6 +7,7 @@ var file='';
 var fileName='';
 var count='-1';
 var sg;
+var inti=0;
 
 function dispLoading(display) {
   if(display){
@@ -28,7 +29,40 @@ function calc() {
      count=$('#nodeCount').val();
    }
    
-   setTimeout(function (params) {
+   if(type==5){
+     inti=setInterval(function name(params) {
+       $.ajax({
+      url:'calc/'+file+'/'+type+'/'+node+'/'+count,
+      type:'GET',
+      timeout:600000,
+      success:function (data) {
+        if(type===0){
+          $('#title').text('Please select an algorithm');
+        }
+        dispLoading(false);
+        //console.log(data);
+        sigma.parsers.json(JSON.stringify(data.graph), sg);
+        sg.graph.nodes('n'+node).size=6;
+        sg.refresh();      
+        console.log(JSON.stringify(data.data));
+        var str ="";
+        for(var j=0;j<data.data.length;j++){
+          str+="<p><strong>Community "+(j+1)+":</strong> ";
+          var comms=data.data[j].split(',');
+          for(var k=0;k<comms.length;k++){
+            str+=comms[k].toString()+", ";
+          }
+          str=str.substring(0,str.length-4);
+          str+="</p>";
+        }
+        $("#datacontain").html(str);
+      }    
+    });
+     },6000);
+   }
+   else{
+     clearInterval(inti);
+     setTimeout(function (params) {
       $.ajax({
       url:'calc/'+file+'/'+type+'/'+node+'/'+count,
       type:'GET',
@@ -50,12 +84,15 @@ function calc() {
           for(var k=0;k<comms.length;k++){
             str+=comms[k].toString()+", ";
           }
+          str=str.substring(0,str.length-4);
           str+="</p>";
         }
         $("#datacontain").html(str);
       }    
     });
    },1500);
+   }
+   
   
 }
 (function() {
